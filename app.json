@@ -4,7 +4,7 @@
     "slug": "GoLift",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/GoLift_logo.png",
     "scheme": "golift",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
