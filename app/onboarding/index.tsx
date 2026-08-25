@@ -1,3 +1,4 @@
+import SharedButton from "@/components/form/sharedButton";
 import GoLiftText from "@/components/ui/GoLiftText";
 import { router } from "expo-router";
 import { useEffect, useRef, useState } from "react";
@@ -36,6 +37,9 @@ useEffect(() => {
         let index = 0;
 
         const interval = setInterval(() => {
+            if (welcomeText === WELCOME){
+                clearInterval(interval);
+            }
             index++;
 
             setWelcomeText(
@@ -45,7 +49,7 @@ useEffect(() => {
             if (index >= WELCOME.length) {
                 clearInterval(interval);
 
-                // Chữ chạy xong
+
                 Animated.timing(buttonAppear, {
                     toValue: 1,
                     duration: 300,
@@ -53,8 +57,6 @@ useEffect(() => {
                 }).start();
             }
         }, 30);
-
-        return () => clearInterval(interval);
     }, [typing]);
 
 
@@ -83,14 +85,9 @@ useEffect(() => {
             <Text style={style.welcomeText}>{welcomeText}</Text>
             <Animated.View style={[
                 {opacity: buttonAppear},
-                style.startButton,
+                style.buttonZone,
             ]}>
-                <Pressable onPress={(e)=>{
-                    e.stopPropagation()
-                    router.replace("/onboarding/start")
-                }}>
-                    <Text style={{color:'#fff', fontSize:20, fontWeight: 'bold'}}>Bắt đầu ngay</Text>
-                </Pressable>
+                <SharedButton onPress={(e)=>router.replace('/onboarding/start')} title="Bắt đầu ngay" variant="dark"/>
             </Animated.View>
         </Pressable>
     )
@@ -115,10 +112,8 @@ const style = StyleSheet.create({
         marginTop: 30,
         textAlign: 'center',
     },
-    startButton:{
+    buttonZone:{
         marginTop: 30,
-        padding: 10,
-        paddingInline: 20,
         borderRadius: 10,
         backgroundColor: '#2b2b2b',
     },

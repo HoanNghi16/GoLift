@@ -1,15 +1,19 @@
+import SharedButton from "@/components/form/sharedButton";
+import SharedInput from "@/components/form/sharedInput";
+import SharedSelect from "@/components/form/sharedSelect";
 import PrimaryHeader from "@/components/layout/header";
-import SharedInput from "@/components/ui/sharedInput";
+import { router } from "expo-router";
+import { useState } from "react";
 import {
     Image,
-    Pressable,
     ScrollView,
     StyleSheet,
     Text,
-    View,
+    View
 } from "react-native";
 
 export default function StartProfile() {
+    const [gender, setGender] = useState<"Nữ" | "Nam" | "Khác" | null>(null)
     return (
         <View style={style.startCont}>
             <PrimaryHeader
@@ -61,9 +65,7 @@ export default function StartProfile() {
                                 Giới tính của bạn?
                             </Text>
 
-                            <SharedInput
-                                placeholder="Nam / Nữ / Khác"
-                            />
+                            <SharedSelect onSelect={setGender} selected={gender} values={['Nam', 'Nữ', 'Khác']} placeholder="giới tính"/>
                         </View>
 
                         {/* Height */}
@@ -104,7 +106,7 @@ export default function StartProfile() {
                         {/* Experience */}
                         <View style={style.inputWrapper}>
                             <Text style={style.inputDescription}>
-                                Bạn đã tập gym được bao lâu?
+                                Bạn đã tập luyện được bao lâu?
                             </Text>
 
                             <SharedInput
@@ -112,9 +114,9 @@ export default function StartProfile() {
                             />
                         </View>
                     </ScrollView>
-                    <Pressable style={style.continue}>
-                        <Text style={{fontSize: 18, fontWeight: 'bold', color:'#fff'}}>Tiếp tục</Text>
-                    </Pressable>
+                    <View style={style.buttonZone}>
+                        <SharedButton title="Tiếp tục" variant="orange" onPress={(e)=>{router.replace('/(tabs)')}}/>
+                    </View>
                 </View>
             </View>
         </View>
@@ -151,7 +153,7 @@ const style = StyleSheet.create({
 
     formContent: {
         gap: 24,
-        paddingBottom: 40,
+        paddingBottom: 20,
     },
 
     inputWrapper: {
@@ -163,13 +165,8 @@ const style = StyleSheet.create({
         color: "#fff",
         fontWeight: "600",
     },
-    continue: {
-        backgroundColor: "#cc471f",
-        marginBottom: 20,
-        marginTop: 10,
-        height: 40,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 10,
+    buttonZone:{
+        paddingTop: 10,
+        paddingBottom: 10,
     }
 });
