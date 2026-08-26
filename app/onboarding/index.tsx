@@ -87,7 +87,7 @@ useEffect(() => {
                 {opacity: buttonAppear},
                 style.buttonZone,
             ]}>
-                <SharedButton onPress={(e)=>router.replace('/onboarding/start')} title="Bắt đầu ngay" variant="dark"/>
+                <SharedButton onPress={(e)=>router.replace('/onboarding/themes')} title="Bắt đầu ngay"/>
             </Animated.View>
         </Pressable>
     )

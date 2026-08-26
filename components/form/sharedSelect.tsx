@@ -1,40 +1,56 @@
+import { useColor } from "@/hooks/colorProvider";
+import { colorType } from "@/types/color";
 import { useState } from "react";
 import {
     Modal,
     Pressable,
     ScrollView,
     StyleSheet,
-    Text
+    Text,
 } from "react-native";
 
 export default function SharedSelect({
     placeholder = "",
-    values = [],
+    options = [],
     onSelect,
     selected,
 }: {
     placeholder?: string;
-    values: any[];
+    options: { name: string; value: string }[];
     onSelect: (selected: any) => void;
-    selected: any
+    selected: any;
 }) {
     const [isOpen, setIsOpen] = useState(false);
+
+    const { colors } = useColor();
+
+    const styles = createStyles(colors);
+
+    const selectedOption = options.find(
+        (option) => option.value === selected
+    );
 
     return (
         <>
             {/* Select box */}
             <Pressable
                 style={({ pressed }) => [
-                    style.selectBox,
-                    pressed && style.selectBoxPressed,
+                    styles.selectBox,
+                    pressed && styles.selectBoxPressed,
                 ]}
                 onPress={() => setIsOpen(true)}
             >
-                <Text style={style.selectText}>
-                    {selected ? selected : `-- Chọn${" "}${placeholder !== "" ? placeholder : "nhiều giá trị"}${" "}--`}
+                <Text style={styles.selectText}>
+                    {selectedOption
+                        ? selectedOption.name
+                        : `-- Chọn ${
+                              placeholder !== ""
+                                  ? placeholder
+                                  : "nhiều giá trị"
+                          } --`}
                 </Text>
 
-                <Text style={style.arrow}></Text>
+                <Text style={styles.arrow}>⌄</Text>
             </Pressable>
 
             {/* Modal */}
@@ -45,33 +61,33 @@ export default function SharedSelect({
                 onRequestClose={() => setIsOpen(false)}
             >
                 <Pressable
-                    style={style.overlay}
+                    style={styles.overlay}
                     onPress={() => setIsOpen(false)}
                 >
                     {/* Prevent modal body from closing */}
-                    <Pressable style={style.modalBody}>
-                        <Text style={style.modalTitle}>
+                    <Pressable style={styles.modalBody}>
+                        <Text style={styles.modalTitle}>
                             Chọn {placeholder || "giá trị"}
                         </Text>
 
                         <ScrollView
                             showsVerticalScrollIndicator={false}
-                            contentContainerStyle={style.list}
+                            contentContainerStyle={styles.list}
                         >
-                            {values.map((value) => (
+                            {options.map((option) => (
                                 <Pressable
-                                    key={String(value)}
+                                    key={option.value}
                                     style={({ pressed }) => [
-                                        style.item,
-                                        pressed && style.itemPressed,
+                                        styles.item,
+                                        pressed && styles.itemPressed,
                                     ]}
                                     onPress={() => {
-                                        onSelect(value);
+                                        onSelect(option.value);
                                         setIsOpen(false);
                                     }}
                                 >
-                                    <Text style={style.itemText}>
-                                        {value}
+                                    <Text style={styles.itemText}>
+                                        {option.name}
                                     </Text>
                                 </Pressable>
                             ))}
@@ -83,75 +99,90 @@ export default function SharedSelect({
     );
 }
 
-const style = StyleSheet.create({
-    selectBox: {
-        width: "100%",
-        height: 52,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        paddingHorizontal: 16,
-        backgroundColor: "#fff",
-        borderWidth: 1,
-        borderColor: "#2A2A2A",
-        borderRadius: 14,
-    },
+const createStyles = (colors: colorType) =>
+    StyleSheet.create({
+        selectBox: {
+            width: "100%",
+            height: 52,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            paddingHorizontal: 16,
 
-    selectBoxPressed: {
-        opacity: 0.8,
-    },
+            backgroundColor: colors.surface,
+            borderWidth: 1,
+            borderColor: colors.primary,
 
-    selectText: {
-        fontSize: 16,
-        color: "#444",
-    },
+            borderRadius: 14,
+        },
 
-    arrow: {
-        fontSize: 20,
-        color: "#555",
-        marginTop: -5,
-    },
+        selectBoxPressed: {
+            opacity: 0.8,
+        },
 
-    overlay: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#00000080",
-    },
-    modalBody: {
-        width: "82%",
-        maxHeight: "65%",
-        backgroundColor: "#181818",
-        borderRadius: 24,
-        paddingTop: 20,
-        paddingBottom: 10,
-        overflow: "hidden",
-        elevation: 10,
-    },
-    modalTitle: {
-        fontSize: 20,
-        fontWeight: "700",
-        color: "#fff",
-        textAlign: "center",
-        marginBottom: 12,
-    },
-    list: {
-        paddingHorizontal: 12,
-        paddingBottom: 8,
-    },
-    item: {
-        minHeight: 50,
-        justifyContent: "center",
-        alignItems: "center",
-        paddingHorizontal: 16,
-        paddingVertical: 12,
-        borderRadius: 12,
-    },
-    itemPressed: {
-        backgroundColor: "#cc471f",
-    },
-    itemText: {
-        fontSize: 16,
-        color: "#fff",
-    },
-});
+        selectText: {
+            fontSize: 16,
+            color: colors.textPrimary,
+        },
+
+        arrow: {
+            fontSize: 20,
+            color: colors.textSecondary,
+            marginTop: -5,
+        },
+
+        overlay: {
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+
+            backgroundColor: "#00000080",
+        },
+
+        modalBody: {
+            width: "82%",
+            maxHeight: "65%",
+
+            backgroundColor: colors.surface,
+
+            borderRadius: 24,
+            paddingTop: 20,
+            paddingBottom: 10,
+            overflow: "hidden",
+            elevation: 10,
+        },
+
+        modalTitle: {
+            fontSize: 20,
+            fontWeight: "700",
+
+            color: colors.textPrimary,
+
+            textAlign: "center",
+            marginBottom: 12,
+        },
+
+        list: {
+            paddingHorizontal: 12,
+            paddingBottom: 8,
+        },
+
+        item: {
+            minHeight: 50,
+            justifyContent: "center",
+            alignItems: "center",
+
+            paddingHorizontal: 16,
+            paddingVertical: 12,
+            borderRadius: 12,
+        },
+
+        itemPressed: {
+            backgroundColor: colors.primary,
+        },
+
+        itemText: {
+            fontSize: 16,
+            color: colors.textPrimary,
+        },
+    });

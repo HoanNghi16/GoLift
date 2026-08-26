@@ -14,13 +14,6 @@ export default function HomeScreen() {
                 backgroundColor={colors.background}
             />
 
-            {/* Header */}
-            <View style={styles.header}>
-                <Text style={styles.headerText}>
-                    Go<Text style={styles.headerAccent}>Lift</Text>
-                </Text>
-            </View>
-
             {/* Nội dung màn hình */}
             <View style={styles.content}>
                 <Text style={styles.title}>

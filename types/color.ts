@@ -6,3 +6,5 @@ export interface colorType {
     textPrimary: string
     textSecondary: string
 }
+
+export type themeType = Record<string, {DARK_COLORS: colorType, LIGHT_COLORS: colorType}>

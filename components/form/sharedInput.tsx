@@ -1,55 +1,59 @@
+import { useColor } from "@/hooks/colorProvider";
+import { colorType } from "@/types/color";
 import { useState } from "react";
 import {
     StyleSheet,
     TextInput,
-    TextInputProps
+    TextInputProps,
 } from "react-native";
 
 export default function SharedInput(props: TextInputProps) {
     const [focused, setFocused] = useState(false);
 
+    const { colors } = useColor();
+
+    const styles = createStyles(colors);
+
     return (
-            <TextInput
-                {...props}
-                style={[
-                    styles.input,
-                    focused && styles.inputFocused,
-                ]}
-                placeholderTextColor="#777"
-                onFocus={(e) => {
-                    setFocused(true);
-                    props.onFocus?.(e);
-                }}
-                onBlur={(e) => {
-                    setFocused(false);
-                    props.onBlur?.(e);
-                }}
-            />
+        <TextInput
+            {...props}
+            style={[
+                styles.input,
+                focused && styles.inputFocused,
+            ]}
+            placeholderTextColor={colors.textSecondary}
+            onFocus={(e) => {
+                setFocused(true);
+                props.onFocus?.(e);
+            }}
+            onBlur={(e) => {
+                setFocused(false);
+                props.onBlur?.(e);
+            }}
+        />
     );
 }
 
-const styles = StyleSheet.create({
-    inputContainer:{
-        display: 'flex',
-    },
-    input: {
-        width: "100%",
-        height: 52,
+const createStyles = (colors: colorType) =>
+    StyleSheet.create({
+        input: {
+            width: "100%",
+            height: 52,
 
-        backgroundColor: "#fff",
+            backgroundColor: colors.surface,
 
-        borderWidth: 1,
-        borderColor: "#2A2A2A",
-        borderRadius: 14,
+            borderWidth: 1,
+            borderColor: colors.primary,
 
-        paddingHorizontal: 16,
+            borderRadius: 14,
 
-        color: "#000",
-        fontSize: 16,
-    },
+            paddingHorizontal: 16,
 
-    inputFocused: {
-        borderColor: "#000000",
-        backgroundColor: "#fff",
-    },
-});
+            color: colors.textPrimary,
+            fontSize: 16,
+        },
+
+        inputFocused: {
+            borderColor: colors.primary,
+        },
+    });
