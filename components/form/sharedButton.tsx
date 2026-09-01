@@ -8,9 +8,11 @@ import {
 } from "react-native";
 
 export default function SharedButton({
+    isPrimaryBackground = false,
     title,
     onPress,
 }: {
+    isPrimaryBackground?: boolean,
     title: string;
     onPress: (e: GestureResponderEvent) => void;
 }) {
@@ -22,7 +24,7 @@ export default function SharedButton({
         <Pressable
             onPress={onPress}
             style={[
-                styles.button,styles.dark,
+                styles.button, isPrimaryBackground ? styles.primary : styles.dark ,
             ]}
         >
             <Text style={styles.text}>
@@ -44,7 +46,9 @@ const createStyles = (colors: colorType) =>
         dark: {
             backgroundColor: colors.primary,
         },
-
+        primary: {
+            backgroundColor: colors.background,
+        },
         text: {
             fontSize: 18,
             fontWeight: "bold",

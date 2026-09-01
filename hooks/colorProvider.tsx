@@ -28,11 +28,10 @@ export function ColorProvider({children}:{children: ReactNode}){
     const colors = theme === "dark" ? CUSTOM_THEMES[selectedTheme].DARK_COLORS :  CUSTOM_THEMES[selectedTheme].LIGHT_COLORS 
 
     useEffect(() => {
-        NavigationBar.setBackgroundColorAsync(colors.background);
         NavigationBar.setButtonStyleAsync(
-            theme === "dark" ? "light" : "dark"
-        );
-    }, [colors, theme]);
+                theme === "dark" ? "light" : "dark"
+            );
+    }, [theme]);
 
     return (
         <ColorContext.Provider value={{colors, selectedTheme, setSelectedTheme}}>

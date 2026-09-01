@@ -52,7 +52,7 @@ const createStyles = (colors: colorType) =>
             top: 0,
             height: 60,
 
-            backgroundColor: colors.surface,
+            backgroundColor: colors.background,
 
             borderBottomWidth: 1,
             borderBottomColor: colors.background,

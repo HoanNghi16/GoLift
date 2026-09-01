@@ -19,14 +19,14 @@ export const CUSTOM_THEMES: themeType = {
       primary: "#c2410c",
       primaryText: "#ea580c",
       textPrimary: "#ffffff",
-      textSecondary: "#9a9a9a",
+      textSecondary: "#d0d0d0",
     },
   },
 
   meanCheat: {
     LIGHT_COLORS: {
-      background: "#F1F3F8",
-      surface: "#E4E7F0",
+      background: "#edc3ff",
+      surface: "#7075d6",
       primary: "#183f93",
       primaryText: "#632ebe",
       textPrimary: "#111827",
@@ -35,8 +35,8 @@ export const CUSTOM_THEMES: themeType = {
 
     DARK_COLORS: {
       background: "#0d001a",
-      surface: "#22002c",
-      primary: "#3B82F6",
+      surface: "#2a0036",
+      primary:  "#00012c",
       primaryText: "#A855F7",
       textPrimary: "#FFFFFF",
       textSecondary: "#9CA3AF",

@@ -43,7 +43,7 @@ export default function GoLiftText({
 const createStyles = (colors: colorType) =>
     StyleSheet.create({
         optionalContainer: {
-            padding: 5,
+            padding: 6,
             backgroundColor: colors.surface,
             borderRadius: 10,
             flexDirection: "row",

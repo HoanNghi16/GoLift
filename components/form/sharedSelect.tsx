@@ -109,7 +109,7 @@ const createStyles = (colors: colorType) =>
             justifyContent: "space-between",
             paddingHorizontal: 16,
 
-            backgroundColor: colors.surface,
+            backgroundColor: colors.background,
             borderWidth: 1,
             borderColor: colors.primary,
 
