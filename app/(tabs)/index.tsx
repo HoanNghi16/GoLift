@@ -3,6 +3,7 @@ import { colorType } from "@/types/color";
 import { useMemo, useRef, useState } from "react";
 import {
     Image,
+    ImageBackground,
     Modal,
     Pressable,
     ScrollView,
@@ -153,25 +154,30 @@ export default function HomeScreen() {
                                         onTouchEnd={clearPressTimer}
                                         onTouchCancel={clearPressTimer}
                                     >
-                                        <View
+                                        <ImageBackground
+                                            source={isCheckedIn ? require("@/assets/images/GoLift_logo.png") : undefined}
                                             style={[
                                                 styles.dayCircle,
-                                                isCheckedIn && styles.dayCircleChecked,
+                                                isCheckedIn && {...styles.dayCircleChecked, backgroundImage: require("@/assets/images/GoLift_logo.png")},
                                                 !isCheckedIn && styles.dayCircleUnchecked,
                                                 isToday && styles.dayCircleToday,
                                                 pressedIndex === index && styles.dayCirclePressed,
                                             ]}
                                         >
-                                            <Text
-                                                style={[
-                                                    styles.dayNumber,
-                                                    isCheckedIn && styles.dayNumberChecked,
-                                                    isToday && styles.dayNumberToday,
-                                                ]}
-                                            >
-                                                {cell}
-                                            </Text>
-                                        </View>
+                                            <View
+                                                style={isCheckedIn && { backgroundColor: "#000000af", width: "100%", height: "100%", alignItems: "center", justifyContent: "center" }}
+                                                >
+                                                <Text
+                                                    style={[
+                                                        styles.dayNumber,
+                                                        isCheckedIn && styles.dayNumberChecked,
+                                                        isToday && styles.dayNumberToday,
+                                                    ]}
+                                                >
+                                                    {cell}
+                                                </Text>
+                                            </View>
+                                        </ImageBackground>
                                     </Pressable>
                                 );
                             })}
@@ -435,6 +441,8 @@ const createStyles = (colors: colorType) =>
 
         dayCircleChecked: {
             backgroundColor: colors.surface,
+            borderRadius: '100%',
+            overflow: 'hidden',
         },
 
         dayCircleUnchecked: {
