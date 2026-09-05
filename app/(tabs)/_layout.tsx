@@ -18,9 +18,7 @@ export default function TabLayout() {
           headerShown: false,
         }}>
       </Stack>
-      <SafeAreaView edges={['bottom']} style={{backgroundColor: colors.surface}}>
-        <PrimaryTabBar/>
-      </SafeAreaView>
+      <PrimaryTabBar/>
     </>
   );
 }
